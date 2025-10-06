@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonVS1", "PokemonVS1\PokemonVS1.csproj", "{4D3743E4-6937-4A60-B5A6-6557F23B1765}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service", "negocio\service.csproj", "{053E9C38-805A-4552-989A-81D8CE71855F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "negocio", "negocio\negocio.csproj", "{053E9C38-805A-4552-989A-81D8CE71855F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dominio", "dominio\dominio.csproj", "{9913F6CE-7FB0-4E88-A5E6-3981C4736155}"
 EndProject

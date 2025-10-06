@@ -9,9 +9,9 @@ using dominio;
 
 
 
-namespace service
+namespace negocio
 {
-    public class PokemonService
+    public class PokemonNegocio
     {
         //Esta es la clase que me va a permitir conectarme con mi base de datos
         //Acá yo voy a crear los métodos de acceso a datos para los pokemons de la base de datos
@@ -99,10 +99,10 @@ namespace service
                 conexion.Close();
                 return listaPokemon;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
 

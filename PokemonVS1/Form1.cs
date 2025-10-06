@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
-using service;
+using negocio;
 
 namespace PokemonVS1
 {
@@ -23,9 +23,9 @@ namespace PokemonVS1
         private void Form1_Load(object sender, EventArgs e)
         {
             //Acá vamos a hacer el evento load para que apenas carge el winform, me cargue la grilla con la lectura que hizo de la db
-            PokemonService service = new PokemonService(); //creamos una instancia de mi clase service donde hice toda la lógica 
+            PokemonNegocio negocio = new PokemonNegocio(); //creamos una instancia de mi clase service donde hice toda la lógica 
 
-            listaPokemon = service.Listar();
+            listaPokemon = negocio.Listar();
             dgvPokemons.DataSource = listaPokemon; //a la grilla de datos, le voy a asignar service.listar()
             //serive.listar va a la base de datos y te devuelve una lista de datos, la listapokemon, 
             //que hace dataSource? recibe una lista de datos y lo modela en la tabla 
