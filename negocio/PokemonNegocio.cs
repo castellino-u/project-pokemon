@@ -110,7 +110,44 @@ namespace negocio
         }
 
 
+        //acá creamos el método de agregar
+        public void agregar(Pokemon nuevo)
+        {
+            //insert into POKEMONS(Numero, Nombre, Descripcion, UrlImagen, Activo) values (1, ' ', ' ', '', 1);
+            AccesoDatos datos = new AccesoDatos();
 
+
+            try
+            {
+                //seteamos la consulta
+                datos.setearConsulta("insert into POKEMONS(Numero, Nombre, Descripcion, UrlImagen, Activo, IdTipo, IdDebilidad) values ( @numero , @nombre, @descripcion, @urlImagenTapa , 1, @idTipo, @idDebilidad);");
+
+                //seteamos parametros para hacerlo más dinámico y no tengamos que armar toda esa concatenación de elementos
+                datos.setearParametros("@numero", nuevo.Numero);
+                datos.setearParametros("@nombre", nuevo.Nombre);
+                datos.setearParametros("@descripcion", nuevo.Descripcion);
+                datos.setearParametros("@urlImagenTapa", nuevo.UrlImagen);
+
+                datos.setearParametros("@idTipo", nuevo.Tipo.Id);
+                datos.setearParametros("@idDebilidad", nuevo.Debilidad.Id);
+
+
+                //ejecutamos la consulta
+                datos.ejecutarAccion();
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }

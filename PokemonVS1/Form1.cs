@@ -63,5 +63,12 @@ namespace PokemonVS1
             }
         }
 
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            //desde este botón llamamos al form de agregar pokemmon
+            frmAtlaPokemon alta = new frmAtlaPokemon();
+            alta.ShowDialog();  //el showdialog es para que no me permita volver a la vista anterior hasta que termine de trabajar ahí
+
+        }
     }
 }

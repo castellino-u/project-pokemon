@@ -63,6 +63,30 @@ namespace negocio
 
         }
 
+        //ejecutar insert
+        public void ejecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        //setear parametros al comando
+
+        public void setearParametros(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+        }
+
         //necesitamos ahora cerrar la conexión
 
         public void cerrarConexion()
@@ -70,6 +94,10 @@ namespace negocio
             if (lector != null) { lector.Close(); }  //esto lo hacemos porque al lector también hay que cerrarlo
             conexion.Close();
         }
+
+        //ejecutar un delete
+
+        //ejecutar un update
 
     }
 }
