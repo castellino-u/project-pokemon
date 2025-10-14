@@ -80,7 +80,13 @@ namespace negocio
                     aux.Numero = lector.GetInt32(0);  //esta es una forma de mapear el objeto y 
                     aux.Nombre = (string)lector["Nombre"];
                     aux.Descripcion = (string)lector["Descripcion"];
-                    aux.UrlImagen = (string)lector["UrlImagen"];
+
+                    //Acá se rompe porque puede que la urlimagen puede que sea nula
+                    
+                    if (!(lector["UrlImagen"] is DBNull))
+                    {
+                        aux.UrlImagen = (string)lector["UrlImagen"];
+                    }
 
                     aux.Tipo = new Elemento();
                     aux.Tipo.Descripcion = (string)lector["Tipo"];

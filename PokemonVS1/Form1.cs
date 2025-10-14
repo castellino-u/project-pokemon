@@ -23,16 +23,31 @@ namespace PokemonVS1
         private void Form1_Load(object sender, EventArgs e)
         {
             //Acá vamos a hacer el evento load para que apenas carge el winform, me cargue la grilla con la lectura que hizo de la db
+            cargarDatos();
+
+
+            
+        }
+
+        private void cargarDatos()
+        {
+            //Acá vamos a hacer el evento load para que apenas carge el winform, me cargue la grilla con la lectura que hizo de la db
             PokemonNegocio negocio = new PokemonNegocio(); //creamos una instancia de mi clase service donde hice toda la lógica 
+            try   //aplicamos un trycatch para manejo de errores por si se lee algún dato nulo
+            {
+                listaPokemon = negocio.Listar();
+                dgvPokemons.DataSource = listaPokemon; //a la grilla de datos, le voy a asignar service.listar()
+                //serive.listar va a la base de datos y te devuelve una lista de datos, la listapokemon, 
+                //que hace dataSource? recibe una lista de datos y lo modela en la tabla 
+                dgvPokemons.Columns["UrlImagen"].Visible = false; //hacemos esto para no mostrar una columna y ver solo lo que queremos ver. Solo ocultamos una columna
+                cargarImagen(listaPokemon[0].UrlImagen);
 
-            listaPokemon = negocio.Listar();
-            dgvPokemons.DataSource = listaPokemon; //a la grilla de datos, le voy a asignar service.listar()
-            //serive.listar va a la base de datos y te devuelve una lista de datos, la listapokemon, 
-            //que hace dataSource? recibe una lista de datos y lo modela en la tabla 
-            dgvPokemons.Columns["UrlImagen"].Visible = false; //hacemos esto para no mostrar una columna y ver solo lo que queremos ver. Solo ocultamos una columna
-            cargarImagen(listaPokemon[0].UrlImagen);
+            }
+            catch (Exception ex)
+            {
 
-
+                MessageBox.Show(ex.ToString());
+            }
 
         }
 
@@ -68,6 +83,7 @@ namespace PokemonVS1
             //desde este botón llamamos al form de agregar pokemmon
             frmAtlaPokemon alta = new frmAtlaPokemon();
             alta.ShowDialog();  //el showdialog es para que no me permita volver a la vista anterior hasta que termine de trabajar ahí
+            cargarDatos();
 
         }
     }

@@ -37,7 +37,8 @@
             // 
             // pbxPokemon
             // 
-            this.pbxPokemon.Location = new System.Drawing.Point(340, 62);
+            this.pbxPokemon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbxPokemon.Location = new System.Drawing.Point(341, 44);
             this.pbxPokemon.Name = "pbxPokemon";
             this.pbxPokemon.Size = new System.Drawing.Size(344, 226);
             this.pbxPokemon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -47,16 +48,21 @@
             // 
             // dgvPokemons
             // 
+            this.dgvPokemons.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvPokemons.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvPokemons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPokemons.Location = new System.Drawing.Point(245, 309);
+            this.dgvPokemons.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvPokemons.Location = new System.Drawing.Point(234, 276);
+            this.dgvPokemons.MultiSelect = false;
             this.dgvPokemons.Name = "dgvPokemons";
-            this.dgvPokemons.Size = new System.Drawing.Size(545, 106);
+            this.dgvPokemons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPokemons.Size = new System.Drawing.Size(558, 179);
             this.dgvPokemons.TabIndex = 1;
             this.dgvPokemons.SelectionChanged += new System.EventHandler(this.dgvPokemons_SelectionChanged);
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(245, 421);
+            this.btnAgregar.Location = new System.Drawing.Point(245, 461);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(105, 43);
             this.btnAgregar.TabIndex = 2;

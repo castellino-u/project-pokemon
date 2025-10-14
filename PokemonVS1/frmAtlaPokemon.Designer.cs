@@ -59,7 +59,7 @@
             this.lblNombre.Location = new System.Drawing.Point(41, 69);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(47, 13);
-            this.lblNombre.TabIndex = 1;
+            this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Nombre:";
             // 
             // lblDescricion
@@ -68,7 +68,7 @@
             this.lblDescricion.Location = new System.Drawing.Point(19, 98);
             this.lblDescricion.Name = "lblDescricion";
             this.lblDescricion.Size = new System.Drawing.Size(69, 13);
-            this.lblDescricion.TabIndex = 2;
+            this.lblDescricion.TabIndex = 0;
             this.lblDescricion.Text = "Descripción: ";
             // 
             // txtNumero
@@ -76,21 +76,21 @@
             this.txtNumero.Location = new System.Drawing.Point(110, 43);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(121, 20);
-            this.txtNumero.TabIndex = 3;
+            this.txtNumero.TabIndex = 0;
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(110, 69);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(121, 20);
-            this.txtNombre.TabIndex = 4;
+            this.txtNombre.TabIndex = 1;
             // 
             // txtDescripcion
             // 
             this.txtDescripcion.Location = new System.Drawing.Point(110, 95);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(121, 20);
-            this.txtDescripcion.TabIndex = 5;
+            this.txtDescripcion.TabIndex = 2;
             // 
             // btnAceptar
             // 
@@ -120,7 +120,7 @@
             this.lblUrlImg.Location = new System.Drawing.Point(12, 121);
             this.lblUrlImg.Name = "lblUrlImg";
             this.lblUrlImg.Size = new System.Drawing.Size(76, 13);
-            this.lblUrlImg.TabIndex = 8;
+            this.lblUrlImg.TabIndex = 0;
             this.lblUrlImg.Text = "Url de Imagen:";
             // 
             // txtUrlImg
@@ -128,7 +128,7 @@
             this.txtUrlImg.Location = new System.Drawing.Point(110, 121);
             this.txtUrlImg.Name = "txtUrlImg";
             this.txtUrlImg.Size = new System.Drawing.Size(121, 20);
-            this.txtUrlImg.TabIndex = 9;
+            this.txtUrlImg.TabIndex = 3;
             // 
             // lblTipo
             // 
@@ -136,7 +136,7 @@
             this.lblTipo.Location = new System.Drawing.Point(54, 154);
             this.lblTipo.Name = "lblTipo";
             this.lblTipo.Size = new System.Drawing.Size(34, 13);
-            this.lblTipo.TabIndex = 10;
+            this.lblTipo.TabIndex = 0;
             this.lblTipo.Text = "Tipo: ";
             // 
             // lblDebilidad
@@ -145,7 +145,7 @@
             this.lblDebilidad.Location = new System.Drawing.Point(31, 180);
             this.lblDebilidad.Name = "lblDebilidad";
             this.lblDebilidad.Size = new System.Drawing.Size(57, 13);
-            this.lblDebilidad.TabIndex = 11;
+            this.lblDebilidad.TabIndex = 0;
             this.lblDebilidad.Text = "Debilidad: ";
             // 
             // cbxTipo
@@ -155,7 +155,7 @@
             this.cbxTipo.Location = new System.Drawing.Point(110, 151);
             this.cbxTipo.Name = "cbxTipo";
             this.cbxTipo.Size = new System.Drawing.Size(121, 21);
-            this.cbxTipo.TabIndex = 12;
+            this.cbxTipo.TabIndex = 4;
             // 
             // cbxDebilidad
             // 
@@ -164,7 +164,7 @@
             this.cbxDebilidad.Location = new System.Drawing.Point(110, 180);
             this.cbxDebilidad.Name = "cbxDebilidad";
             this.cbxDebilidad.Size = new System.Drawing.Size(121, 21);
-            this.cbxDebilidad.TabIndex = 13;
+            this.cbxDebilidad.TabIndex = 5;
             // 
             // frmAtlaPokemon
             // 
@@ -187,7 +187,7 @@
             this.Controls.Add(this.lblNumero);
             this.Name = "frmAtlaPokemon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Nuevo Pokemon";
+            this.Text = "0";
             this.Load += new System.EventHandler(this.frmAtlaPokemon_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
