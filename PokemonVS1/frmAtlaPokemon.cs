@@ -65,8 +65,34 @@ namespace PokemonVS1
 
             cbxTipo.DataSource = elementnegocio.listar();
             cbxDebilidad.DataSource = elementnegocio.listar();
+            
+            
+            cargarImagen("https://static.wikia.nocookie.net/espokemon/images/0/02/Pok%C3%A9_Ball_%28Ilustraci%C3%B3n%29.png/revision/latest?cb=20090125150654");
+
+        }
+
+        private void txtUrlImg_Leave(object sender, EventArgs e)
+        {
+            
+            
+            cargarImagen(txtUrlImg.Text);
+
+        }
+
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbxImg.Load(imagen);
 
 
+            }
+            catch (Exception)
+            {
+                //vamos a hacer que si la imagen no está, para que no me lance la exepción, pongamos otra cosa, en este caso, una
+                //imagen de internet
+                pbxImg.Load("https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=");
+            }
         }
     }
 }

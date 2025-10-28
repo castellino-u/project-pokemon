@@ -42,6 +42,8 @@
             this.lblDebilidad = new System.Windows.Forms.Label();
             this.cbxTipo = new System.Windows.Forms.ComboBox();
             this.cbxDebilidad = new System.Windows.Forms.ComboBox();
+            this.pbxImg = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImg)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNumero
@@ -129,6 +131,7 @@
             this.txtUrlImg.Name = "txtUrlImg";
             this.txtUrlImg.Size = new System.Drawing.Size(121, 20);
             this.txtUrlImg.TabIndex = 3;
+            this.txtUrlImg.Leave += new System.EventHandler(this.txtUrlImg_Leave);
             // 
             // lblTipo
             // 
@@ -166,11 +169,21 @@
             this.cbxDebilidad.Size = new System.Drawing.Size(121, 21);
             this.cbxDebilidad.TabIndex = 5;
             // 
+            // pbxImg
+            // 
+            this.pbxImg.Location = new System.Drawing.Point(333, 43);
+            this.pbxImg.Name = "pbxImg";
+            this.pbxImg.Size = new System.Drawing.Size(253, 235);
+            this.pbxImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxImg.TabIndex = 8;
+            this.pbxImg.TabStop = false;
+            // 
             // frmAtlaPokemon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(296, 393);
+            this.ClientSize = new System.Drawing.Size(647, 405);
+            this.Controls.Add(this.pbxImg);
             this.Controls.Add(this.cbxDebilidad);
             this.Controls.Add(this.cbxTipo);
             this.Controls.Add(this.lblDebilidad);
@@ -189,6 +202,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "0";
             this.Load += new System.EventHandler(this.frmAtlaPokemon_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +224,6 @@
         private System.Windows.Forms.Label lblDebilidad;
         private System.Windows.Forms.ComboBox cbxTipo;
         private System.Windows.Forms.ComboBox cbxDebilidad;
+        private System.Windows.Forms.PictureBox pbxImg;
     }
 }
