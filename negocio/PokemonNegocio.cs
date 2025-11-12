@@ -53,7 +53,7 @@ namespace negocio
                 comando.CommandType = System.Data.CommandType.Text;
                 //los tipos que tenemos son 3, y los mas usados son el Text. 
                 // una vez que le digo que es de tipo text, voy  a mandarle el texto. El texto va a ser la consulta sql
-                comando.CommandText = "Select P.Numero, P.Nombre, P.Descripcion, P.UrlImagen, E.Descripcion AS Tipo, D.Descripcion AS Debilidad From POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE  E.Id = P.IdTipo AND D.Id = P.IdDebilidad;"; //Consejo:hacer y  probar primero la consulta sql en la db antes de mandarla, para evitar ese gran margen de error
+                comando.CommandText = "Select P.Id, P.Numero, P.Nombre, P.Descripcion, P.UrlImagen, E.Descripcion AS Tipo, D.Descripcion AS Debilidad, P.IdTipo, P.IdDebilidad  From POKEMONS P, ELEMENTOS E, ELEMENTOS D  WHERE  E.Id = P.IdTipo AND D.Id = P.IdDebilidad;\r\n"; //Consejo:hacer y  probar primero la consulta sql en la db antes de mandarla, para evitar ese gran margen de error
                 //lo siguiente es decirle al comando que ejecute esa conexión en esta ejecución
                 comando.Connection = conexion; //El comando configurado arriba, lo vamos a ejecutar en esta línea
 
@@ -77,7 +77,8 @@ namespace negocio
                     //Acá voy a generar un nuevo pokemon y lo voy a empezar a cargar con los datos del registro
                     Pokemon aux = new Pokemon();
                     //Ahora cargamos los datos del lector en mi objeto
-                    aux.Numero = lector.GetInt32(0);  //esta es una forma de mapear el objeto y 
+                    aux.Id = (int)lector["Id"];
+                    aux.Numero = (int)lector["Numero"];  //esta es una forma de mapear el objeto y 
                     aux.Nombre = (string)lector["Nombre"];
                     aux.Descripcion = (string)lector["Descripcion"];
 
@@ -89,9 +90,11 @@ namespace negocio
                     }
 
                     aux.Tipo = new Elemento();
+                    aux.Tipo.Id = (int)lector["IdTipo"];
                     aux.Tipo.Descripcion = (string)lector["Tipo"];
 
                     aux.Debilidad = new Elemento();
+                    aux.Debilidad.Id = (int)lector["IdDebilidad"];
                     aux.Debilidad.Descripcion = (string)lector["Debilidad"];
 
                     //despues de cargar los datos de mi pokemon auxiliar, cargo ese pokemon a mi lista de pokemons
@@ -155,5 +158,66 @@ namespace negocio
             }
         }
 
+
+        public void modificar(Pokemon modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("Update POKEMONS set Numero = @numero, Nombre = @nombre, Descripcion = @desc, UrLImagen = @urlImagen, IdTipo = @idTipo, IdDebilidad = @idDebilidad where Id = @id;");
+                datos.setearParametros("@numero", modificado.Numero );
+                datos.setearParametros("@nombre", modificado.Nombre );
+                datos.setearParametros("@desc", modificado.Descripcion );
+                datos.setearParametros("@urlImagen", modificado.UrlImagen );
+                datos.setearParametros("@idTipo", modificado.Tipo.Id );
+                datos.setearParametros("@idDebilidad", modificado.Debilidad.Id );
+                datos.setearParametros("@id", modificado.Id);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex ;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos accesoDatos = new AccesoDatos();
+                accesoDatos.setearConsulta("Delete from POKEMONS where id = @id");
+                accesoDatos.setearParametros("@id", id);
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void eliminarLogico(int id)
+        {
+            try
+            {
+                AccesoDatos accesoDatos = new AccesoDatos();
+                accesoDatos.setearConsulta("Update POKEMONS set Activo = 0 where Id = @id;");
+                accesoDatos.setearParametros("@id", id);
+                accesoDatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

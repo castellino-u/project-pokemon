@@ -41,6 +41,7 @@ namespace PokemonVS1
                 //que hace dataSource? recibe una lista de datos y lo modela en la tabla 
                 dgvPokemons.Columns["UrlImagen"].Visible = false; //hacemos esto para no mostrar una columna y ver solo lo que queremos ver. Solo ocultamos una columna
                 cargarImagen(listaPokemon[0].UrlImagen);
+                //dgvPokemons.Columns["Id"].Visible = false;
 
             }
             catch (Exception ex)
@@ -85,6 +86,57 @@ namespace PokemonVS1
             alta.ShowDialog();  //el showdialog es para que no me permita volver a la vista anterior hasta que termine de trabajar ahí
             cargarDatos();
 
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            //desde este botón llamamos al form de modificar pokemon
+            //para modificarlo, primero debemos seleccionar un pokemon
+            Pokemon seleccionado;
+            seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+            frmAtlaPokemon modificar = new frmAtlaPokemon(seleccionado);
+            modificar.ShowDialog();  //el showdialog es para que no me permita volver a la vista anterior hasta que termine de trabajar ahí
+            cargarDatos();
+        }
+
+        private void btnEliminarFisico_Click(object sender, EventArgs e)
+        {
+            eliminar();
+        }
+
+        private void btnEliminarLogico_Click(object sender, EventArgs e)
+        {
+            eliminar(true);
+        }
+
+        //vamos a crear un método eliminar
+        private void eliminar(bool logico = false)
+        {
+            PokemonNegocio negocio = new PokemonNegocio();
+            Pokemon seleccionado;
+            try
+            {
+                DialogResult resultado = MessageBox.Show("¿Eliminar Elemento seleccionado?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (resultado == DialogResult.Yes)
+                {
+                    seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+
+                    if (logico)
+                    {
+                        negocio.eliminarLogico(seleccionado.Id);
+                    }
+                    else
+                    {
+                        negocio.eliminar(seleccionado.Id);
+                    }
+                    cargarDatos();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

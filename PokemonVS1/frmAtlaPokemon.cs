@@ -14,10 +14,21 @@ namespace PokemonVS1
 {
     public partial class frmAtlaPokemon : Form
     {
+        private Pokemon pokemon = null;
         public frmAtlaPokemon()
         {
             InitializeComponent();
+            Text = "Agregar Pokemon";
         }
+
+        public frmAtlaPokemon(Pokemon poke)
+        {
+            InitializeComponent();
+            this.pokemon = poke;
+            Text = "Modificar Pokemon";
+
+        }
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -32,21 +43,30 @@ namespace PokemonVS1
             //Cargar esos datos en la base de datos
 
             //primero creamos el objeto
-            Pokemon poke = new Pokemon();
+            //Pokemon poke = new Pokemon();
             PokemonNegocio negocio = new PokemonNegocio();  //instanciamos el objeto que hace la conexión a la base de datos
 
 
             try
             {
-                poke.Numero = int.Parse(txtNumero.Text);
-                poke.Nombre = txtNombre.Text;
-                poke.Descripcion = txtDescripcion.Text;
-                poke.UrlImagen = txtUrlImg.Text;
-                poke.Tipo = (Elemento)cbxTipo.SelectedItem;
-                poke.Debilidad = (Elemento)cbxDebilidad.SelectedItem;
+                if (pokemon == null) { pokemon = new Pokemon(); }   
+                pokemon.Numero = int.Parse(txtNumero.Text);
+                pokemon.Nombre = txtNombre.Text;
+                pokemon.Descripcion = txtDescripcion.Text;
+                pokemon.UrlImagen = txtUrlImg.Text;
+                pokemon.Tipo = (Elemento)cbxTipo.SelectedItem;
+                pokemon.Debilidad = (Elemento)cbxDebilidad.SelectedItem;
 
-                negocio.agregar(poke);
-                MessageBox.Show("Agregado exitosamente");
+                if(pokemon.Id != 0)
+                {
+                    negocio.modificar(pokemon);
+                    MessageBox.Show("Modificado exitosamente");
+                }  
+                else
+                {
+                    negocio.agregar(pokemon);
+                    MessageBox.Show("Agregado exitosamente");
+                }
 
                 Close();
 
@@ -63,12 +83,44 @@ namespace PokemonVS1
         {
             ElementoNegocio elementnegocio = new ElementoNegocio();
 
-            cbxTipo.DataSource = elementnegocio.listar();
-            cbxDebilidad.DataSource = elementnegocio.listar();
-            
-            
-            cargarImagen("https://static.wikia.nocookie.net/espokemon/images/0/02/Pok%C3%A9_Ball_%28Ilustraci%C3%B3n%29.png/revision/latest?cb=20090125150654");
+            try
+            {
+                cbxTipo.DataSource = elementnegocio.listar();
+                //vamos a enlazar los elementos 
+                cbxTipo.ValueMember = "Id";
+                cbxTipo.DisplayMember = "Descripcion";
+                cbxDebilidad.DataSource = elementnegocio.listar();
+                cbxDebilidad.ValueMember = "Id";
+                cbxDebilidad.DisplayMember = "Descripcion";
 
+                cargarImagen("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS288PhAcjBX73e6M7EgZDylm5-vss4koPpxQ&s");
+
+
+
+                if (pokemon != null)
+                {
+                    //si viene con un pokemon, entonces cargamos todos los txt con los datos de ese pokemon
+                    txtNumero.Text = pokemon.Numero.ToString();
+                    txtNombre.Text = pokemon.Nombre;
+                    txtDescripcion.Text = pokemon.Descripcion;
+                    txtUrlImg.Text = pokemon.UrlImagen;
+
+                    //cargamos la imagen que trae el object pokemon
+                    cargarImagen(pokemon.UrlImagen);
+                    
+                    //preseleccionamos valores
+                    cbxTipo.SelectedValue = pokemon.Tipo.Id;
+                    cbxDebilidad.SelectedValue = pokemon.Debilidad.Id;
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void txtUrlImg_Leave(object sender, EventArgs e)

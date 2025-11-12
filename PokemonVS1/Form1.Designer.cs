@@ -31,6 +31,9 @@
             this.pbxPokemon = new System.Windows.Forms.PictureBox();
             this.dgvPokemons = new System.Windows.Forms.DataGridView();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnEliminarFisico = new System.Windows.Forms.Button();
+            this.btnEliminarLogico = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPokemon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPokemons)).BeginInit();
             this.SuspendLayout();
@@ -38,9 +41,9 @@
             // pbxPokemon
             // 
             this.pbxPokemon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbxPokemon.Location = new System.Drawing.Point(341, 44);
+            this.pbxPokemon.Location = new System.Drawing.Point(385, 32);
             this.pbxPokemon.Name = "pbxPokemon";
-            this.pbxPokemon.Size = new System.Drawing.Size(344, 226);
+            this.pbxPokemon.Size = new System.Drawing.Size(364, 238);
             this.pbxPokemon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxPokemon.TabIndex = 0;
             this.pbxPokemon.TabStop = false;
@@ -56,13 +59,13 @@
             this.dgvPokemons.MultiSelect = false;
             this.dgvPokemons.Name = "dgvPokemons";
             this.dgvPokemons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPokemons.Size = new System.Drawing.Size(558, 179);
+            this.dgvPokemons.Size = new System.Drawing.Size(681, 211);
             this.dgvPokemons.TabIndex = 1;
             this.dgvPokemons.SelectionChanged += new System.EventHandler(this.dgvPokemons_SelectionChanged);
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(245, 461);
+            this.btnAgregar.Location = new System.Drawing.Point(230, 507);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(105, 43);
             this.btnAgregar.TabIndex = 2;
@@ -70,11 +73,44 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(341, 507);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(105, 43);
+            this.btnModificar.TabIndex = 3;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // btnEliminarFisico
+            // 
+            this.btnEliminarFisico.Location = new System.Drawing.Point(512, 507);
+            this.btnEliminarFisico.Name = "btnEliminarFisico";
+            this.btnEliminarFisico.Size = new System.Drawing.Size(194, 43);
+            this.btnEliminarFisico.TabIndex = 4;
+            this.btnEliminarFisico.Text = "Eliminar Físico";
+            this.btnEliminarFisico.UseVisualStyleBackColor = true;
+            this.btnEliminarFisico.Click += new System.EventHandler(this.btnEliminarFisico_Click);
+            // 
+            // btnEliminarLogico
+            // 
+            this.btnEliminarLogico.Location = new System.Drawing.Point(721, 507);
+            this.btnEliminarLogico.Name = "btnEliminarLogico";
+            this.btnEliminarLogico.Size = new System.Drawing.Size(194, 43);
+            this.btnEliminarLogico.TabIndex = 5;
+            this.btnEliminarLogico.Text = "Eliminar Lógico";
+            this.btnEliminarLogico.UseVisualStyleBackColor = true;
+            this.btnEliminarLogico.Click += new System.EventHandler(this.btnEliminarLogico_Click);
+            // 
             // Pokedex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 526);
+            this.ClientSize = new System.Drawing.Size(1160, 610);
+            this.Controls.Add(this.btnEliminarLogico);
+            this.Controls.Add(this.btnEliminarFisico);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dgvPokemons);
             this.Controls.Add(this.pbxPokemon);
@@ -93,6 +129,9 @@
         private System.Windows.Forms.PictureBox pbxPokemon;
         private System.Windows.Forms.DataGridView dgvPokemons;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnEliminarFisico;
+        private System.Windows.Forms.Button btnEliminarLogico;
     }
 }
 
