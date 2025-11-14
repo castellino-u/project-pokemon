@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
@@ -29,6 +30,7 @@ namespace PokemonVS1
             
         }
 
+        //Método para cargar datos en la grilla 
         private void cargarDatos()
         {
             //Acá vamos a hacer el evento load para que apenas carge el winform, me cargue la grilla con la lectura que hizo de la db
@@ -37,9 +39,10 @@ namespace PokemonVS1
             {
                 listaPokemon = negocio.Listar();
                 dgvPokemons.DataSource = listaPokemon; //a la grilla de datos, le voy a asignar service.listar()
-                //serive.listar va a la base de datos y te devuelve una lista de datos, la listapokemon, 
-                //que hace dataSource? recibe una lista de datos y lo modela en la tabla 
-                dgvPokemons.Columns["UrlImagen"].Visible = false; //hacemos esto para no mostrar una columna y ver solo lo que queremos ver. Solo ocultamos una columna
+                                                       //serive.listar va a la base de datos y te devuelve una lista de datos, la listapokemon, 
+                                                       //que hace dataSource? recibe una lista de datos y lo modela en la tabla 
+
+                ocultarColumnas();
                 cargarImagen(listaPokemon[0].UrlImagen);
                 //dgvPokemons.Columns["Id"].Visible = false;
 
@@ -52,11 +55,20 @@ namespace PokemonVS1
 
         }
 
+        private void ocultarColumnas()
+        {
+            dgvPokemons.Columns["UrlImagen"].Visible = false; //hacemos esto para no mostrar una columna y ver solo lo que queremos ver. Solo ocultamos una columna
+            dgvPokemons.Columns["Id"].Visible = false;
+        }
+
         private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
         {
-           
-            Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado.UrlImagen);
+            if(dgvPokemons.CurrentRow != null)
+            {
+                Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+                cargarImagen(seleccionado.UrlImagen);
+
+            }           
         }
 
 
@@ -137,6 +149,49 @@ namespace PokemonVS1
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<Pokemon> listaFiltrada;
+
+            
+            string filtrado = txtFiltro.Text.Trim();
+            
+            int numero;
+            
+            if(int.TryParse(filtrado, out numero))
+            {
+
+                listaFiltrada = listaPokemon.FindAll(x => x.Numero == numero);
+
+            }
+            else if (filtrado != "")
+            {
+                filtrado = Regex.Replace(filtrado, @"\s+", " ");
+                //listaFiltrada = listaPokemon.FindAll(x => x.Nombre.ToLower() == filtrado.ToLower()); esta es la versión anteior, Hay una mejorada
+                listaFiltrada = listaPokemon.FindAll(x => x.Nombre.ToLower().Contains(filtrado.ToLower()) || x.Tipo.Descripcion.ToLower().Contains(filtrado.ToLower()));
+            }
+            else
+            {
+                listaFiltrada = listaPokemon;
+            }
+            
+
+            //if (txtFiltro.Text != "")
+            //{
+            //    listaFiltrada = listaPokemon.FindAll(X => X.Nombre.ToLower() == txtFiltro.Text.ToLower());
+            //}else
+            //{
+            //    listaFiltrada = listaPokemon;
+            //}
+
+             dgvPokemons.DataSource = null;
+             dgvPokemons.DataSource = listaFiltrada;
+             ocultarColumnas();
+
+
+
         }
     }
 }

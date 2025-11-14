@@ -53,7 +53,7 @@ namespace negocio
                 comando.CommandType = System.Data.CommandType.Text;
                 //los tipos que tenemos son 3, y los mas usados son el Text. 
                 // una vez que le digo que es de tipo text, voy  a mandarle el texto. El texto va a ser la consulta sql
-                comando.CommandText = "Select P.Id, P.Numero, P.Nombre, P.Descripcion, P.UrlImagen, E.Descripcion AS Tipo, D.Descripcion AS Debilidad, P.IdTipo, P.IdDebilidad  From POKEMONS P, ELEMENTOS E, ELEMENTOS D  WHERE  E.Id = P.IdTipo AND D.Id = P.IdDebilidad;\r\n"; //Consejo:hacer y  probar primero la consulta sql en la db antes de mandarla, para evitar ese gran margen de error
+                comando.CommandText = "Select P.Id, P.Numero, P.Nombre, P.Descripcion, P.UrlImagen, E.Descripcion AS Tipo, D.Descripcion AS Debilidad, P.IdTipo, P.IdDebilidad  From POKEMONS P, ELEMENTOS E, ELEMENTOS D  WHERE  E.Id = P.IdTipo AND D.Id = P.IdDebilidad And P.Activo = 1;\r\n"; //Consejo:hacer y  probar primero la consulta sql en la db antes de mandarla, para evitar ese gran margen de error
                 //lo siguiente es decirle al comando que ejecute esa conexión en esta ejecución
                 comando.Connection = conexion; //El comando configurado arriba, lo vamos a ejecutar en esta línea
 
@@ -77,6 +77,7 @@ namespace negocio
                     //Acá voy a generar un nuevo pokemon y lo voy a empezar a cargar con los datos del registro
                     Pokemon aux = new Pokemon();
                     //Ahora cargamos los datos del lector en mi objeto
+                    //aux.Estado = (int)lector["Activo"];
                     aux.Id = (int)lector["Id"];
                     aux.Numero = (int)lector["Numero"];  //esta es una forma de mapear el objeto y 
                     aux.Nombre = (string)lector["Nombre"];
