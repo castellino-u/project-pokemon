@@ -25,9 +25,12 @@ namespace PokemonVS1
         {
             //Acá vamos a hacer el evento load para que apenas carge el winform, me cargue la grilla con la lectura que hizo de la db
             cargarDatos();
+            //Acá cargamos los datos de un desplegable
+            cboCampo.Items.Add("Número");
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Descripción");
 
 
-            
         }
 
         //Método para cargar datos en la grilla 
@@ -153,20 +156,37 @@ namespace PokemonVS1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            PokemonNegocio negocio = new PokemonNegocio();
+            try
+            {
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltroAvanzado.Text;
+                dgvPokemons.DataSource = negocio.filtrar(campo, criterio, filtro); 
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
             List<Pokemon> listaFiltrada;
 
-            
-            string filtrado = txtFiltro.Text.Trim();
-            
+
+            string filtrado = txtFiltroRapido.Text.Trim();
+
             int numero;
-            
-            if(int.TryParse(filtrado, out numero))
+
+            if (int.TryParse(filtrado, out numero))
             {
 
                 listaFiltrada = listaPokemon.FindAll(x => x.Numero == numero);
 
             }
-            else if (filtrado != "")
+            else if (filtrado.Length >= 2)
             {
                 filtrado = Regex.Replace(filtrado, @"\s+", " ");
                 //listaFiltrada = listaPokemon.FindAll(x => x.Nombre.ToLower() == filtrado.ToLower()); esta es la versión anteior, Hay una mejorada
@@ -176,22 +196,34 @@ namespace PokemonVS1
             {
                 listaFiltrada = listaPokemon;
             }
-            
 
-            //if (txtFiltro.Text != "")
-            //{
-            //    listaFiltrada = listaPokemon.FindAll(X => X.Nombre.ToLower() == txtFiltro.Text.ToLower());
-            //}else
-            //{
-            //    listaFiltrada = listaPokemon;
-            //}
+            dgvPokemons.DataSource = null;
+            dgvPokemons.DataSource = listaFiltrada;
+            ocultarColumnas();
 
-             dgvPokemons.DataSource = null;
-             dgvPokemons.DataSource = listaFiltrada;
-             ocultarColumnas();
+        }
 
+        
 
+        private void cboCampo_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+            if (opcion == "Número")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a ");
+                cboCriterio.Items.Add("Igual a ");
 
+            }
+            else
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Empieza con ");
+                cboCriterio.Items.Add("Termina con ");
+                cboCriterio.Items.Add("Contiene ");
+
+            }
         }
     }
 }

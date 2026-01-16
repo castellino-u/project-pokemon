@@ -41,11 +41,8 @@ namespace PokemonVS1
             //Este botón aceptar debe capturar los datos ingresados en el input y transformarlos en un object de tipo pokemon
             //Iniciar el proceso de conexión con la base de datos
             //Cargar esos datos en la base de datos
-
-            //primero creamos el objeto
-            //Pokemon poke = new Pokemon();
+            
             PokemonNegocio negocio = new PokemonNegocio();  //instanciamos el objeto que hace la conexión a la base de datos
-
 
             try
             {
@@ -69,12 +66,9 @@ namespace PokemonVS1
                 }
 
                 Close();
-
-
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString()); //esto es para lanzar un mensaje con el error
             }
         }
@@ -111,14 +105,10 @@ namespace PokemonVS1
                     //preseleccionamos valores
                     cbxTipo.SelectedValue = pokemon.Tipo.Id;
                     cbxDebilidad.SelectedValue = pokemon.Debilidad.Id;
-
-
                 }
-
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
