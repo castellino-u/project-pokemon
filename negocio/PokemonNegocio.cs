@@ -224,14 +224,97 @@ namespace negocio
         public List<Pokemon> filtrar(string campo, string criterio, string filtro)
         {
             List<Pokemon> lista = new List<Pokemon>();
+            AccesoDatos datos = new AccesoDatos();
+            string consulta = "Select P.Activo, P.Id, P.Numero, P.Nombre, P.Descripcion, P.UrlImagen, E.Descripcion AS Tipo, D.Descripcion AS Debilidad, P.IdTipo, P.IdDebilidad  From POKEMONS P, ELEMENTOS E, ELEMENTOS D  WHERE  E.Id = P.IdTipo AND D.Id = P.IdDebilidad And P.Activo = 1 AND ";
+
+
             try
             {
+                if (campo == "Número")
+                {
+                    if (criterio == "Mayor a")
+                    {
+                        consulta += "P.Numero > " + filtro;
+                    }
+                    else if (criterio == "Menor a")
+                    {
+                        consulta += "P.Numero < " + filtro;
+                    }
+                    else
+                    {
+                        consulta += "P.Numero = " + filtro;
+                    }
+                }
+                else if (campo == "Nombre")
+                {
+                    if (criterio == "Empieza con")
+                    {
+                        consulta += "P.Nombre like '" + filtro + "%'";
+                    }
+                    else if (criterio == "Termina con")
+                    {
+                        consulta += "P.Nombre like '%" + filtro + "'";
+                    }
+                    else
+                    {
+                        consulta += "P.Nombre like '%" + filtro + "%'";
+                    }
+                }
+                else
+                {
+                    if (campo == "Descripción")
+                    {
+                        if (criterio == "Empieza con")
+                        {
+                            consulta += "P.Descripcion like '" + filtro + "%'";
+                        }
+                        else if (criterio == "Termina con")
+                        {
+                            consulta += "P.Descripcion like '%" + filtro + "'";
+                        }
+                        else
+                        {
+                            consulta += "P.Descripcion like '%" + filtro + "%'";
+                        }
+                    }
+                }
 
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read()) //Si hay un objeto en la base de datos, o sea, algo que leyó el select, esto me va a dar true y va a entrar al while, si no leyó nada, va a dar false y se va a salir
+                {
+                    Pokemon aux = new Pokemon();
+                    aux.Estado = (bool)datos.Lector["Activo"];
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Numero = (int)datos.Lector["Numero"];  //esta es una forma de mapear el objeto y 
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+
+                    if (!(datos.Lector["UrlImagen"] is DBNull))
+                    {
+                        aux.UrlImagen = (string)datos.Lector["UrlImagen"];
+                    }
+
+                    aux.Tipo = new Elemento();
+                    aux.Tipo.Id = (int)datos.Lector["IdTipo"];
+                    aux.Tipo.Descripcion = (string)datos.Lector["Tipo"];
+
+                    aux.Debilidad = new Elemento();
+                    aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
+                    aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
+
+                    lista.Add(aux);
+                }
             }
             catch (Exception ex)
             {
 
                 throw ex;
+            }
+            finally 
+            {
+                datos.cerrarConexion();
             }
 
             return lista;

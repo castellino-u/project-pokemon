@@ -25,6 +25,7 @@ namespace PokemonVS1
         {
             //Acá vamos a hacer el evento load para que apenas carge el winform, me cargue la grilla con la lectura que hizo de la db
             cargarDatos();
+            ocultarColumnas();
             //Acá cargamos los datos de un desplegable
             cboCampo.Items.Add("Número");
             cboCampo.Items.Add("Nombre");
@@ -62,6 +63,7 @@ namespace PokemonVS1
         {
             dgvPokemons.Columns["UrlImagen"].Visible = false; //hacemos esto para no mostrar una columna y ver solo lo que queremos ver. Solo ocultamos una columna
             dgvPokemons.Columns["Id"].Visible = false;
+            dgvPokemons.Columns["Estado"].Visible = false; 
         }
 
         private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
@@ -154,15 +156,21 @@ namespace PokemonVS1
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnFiltro_Click(object sender, EventArgs e)
         {
             PokemonNegocio negocio = new PokemonNegocio();
             try
-            {
+            {   
                 string campo = cboCampo.SelectedItem.ToString();
                 string criterio = cboCriterio.SelectedItem.ToString();
                 string filtro = txtFiltroAvanzado.Text;
-                dgvPokemons.DataSource = negocio.filtrar(campo, criterio, filtro); 
+                
+                
+                if(cboCampo.SelectedItem != null && cboCriterio.SelectedItem != null){
+                    dgvPokemons.DataSource = null;
+                    dgvPokemons.DataSource = negocio.filtrar(campo, criterio, filtro);
+                    ocultarColumnas();
+                }
             }
             catch (Exception ex)
             {
@@ -212,16 +220,16 @@ namespace PokemonVS1
             {
                 cboCriterio.Items.Clear();
                 cboCriterio.Items.Add("Mayor a");
-                cboCriterio.Items.Add("Menor a ");
-                cboCriterio.Items.Add("Igual a ");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
 
             }
             else
             {
                 cboCriterio.Items.Clear();
-                cboCriterio.Items.Add("Empieza con ");
-                cboCriterio.Items.Add("Termina con ");
-                cboCriterio.Items.Add("Contiene ");
+                cboCriterio.Items.Add("Empieza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
 
             }
         }

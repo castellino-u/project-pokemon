@@ -139,7 +139,7 @@
             this.btnFiltro.TabIndex = 8;
             this.btnFiltro.Text = "Buscar";
             this.btnFiltro.UseVisualStyleBackColor = false;
-            this.btnFiltro.Click += new System.EventHandler(this.button1_Click);
+            this.btnFiltro.Click += new System.EventHandler(this.btnFiltro_Click);
             // 
             // cboCampo
             // 
