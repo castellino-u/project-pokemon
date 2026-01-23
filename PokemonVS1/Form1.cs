@@ -105,14 +105,26 @@ namespace PokemonVS1
 
         }
 
+
+
         private void btnModificar_Click(object sender, EventArgs e)
         {
             //desde este botón llamamos al form de modificar pokemon
             //para modificarlo, primero debemos seleccionar un pokemon
-            Pokemon seleccionado;
-            seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-            frmAtlaPokemon modificar = new frmAtlaPokemon(seleccionado);
-            modificar.ShowDialog();  //el showdialog es para que no me permita volver a la vista anterior hasta que termine de trabajar ahí
+            try
+            {
+                Pokemon seleccionado;
+                seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+                frmAtlaPokemon modificar = new frmAtlaPokemon(seleccionado);
+                modificar.ShowDialog();  //el showdialog es para que no me permita volver a la vista anterior hasta que termine de trabajar ahí
+
+            }
+            catch (Exception ex)
+            {
+                // MessageBox.Show("Error al modificar pokemon.\n" + ex.Message, "Error",MessageBoxButtons.OK,
+                //MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString());
+            }
             cargarDatos();
         }
 
@@ -156,14 +168,52 @@ namespace PokemonVS1
             }
         }
 
+
+        private bool validar()
+        {
+            if (txtFiltroAvanzado.Text == "")
+            {
+                MessageBox.Show("Campo de filtro vacío");
+                return true;
+            }
+
+            if(cboCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor, seleccione un campo");
+                return true;
+            }
+
+            if (cboCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor, seleccione un criterio de busqueda");
+                return true;
+            }
+
+            if(cboCampo.SelectedItem.ToString() == "Número")
+            {
+                int numero;
+                if (!(int.TryParse(txtFiltroAvanzado.Text, out numero)))
+                {
+                    MessageBox.Show("Debe ingresar un número");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void btnFiltro_Click(object sender, EventArgs e)
         {
             PokemonNegocio negocio = new PokemonNegocio();
             try
-            {   
+            {
+                if (validar())
+                {
+                    return;
+                }
+                string filtro = txtFiltroAvanzado.Text;
                 string campo = cboCampo.SelectedItem.ToString();
                 string criterio = cboCriterio.SelectedItem.ToString();
-                string filtro = txtFiltroAvanzado.Text;
                 
                 
                 if(cboCampo.SelectedItem != null && cboCriterio.SelectedItem != null){
@@ -232,6 +282,11 @@ namespace PokemonVS1
                 cboCriterio.Items.Add("Contiene");
 
             }
+        }
+
+        private void btnReiniciarBusqueda_Click(object sender, EventArgs e)
+        {
+            cargarDatos();
         }
     }
 }

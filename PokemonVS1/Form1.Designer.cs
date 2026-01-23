@@ -43,6 +43,7 @@
             this.lblCriterio = new System.Windows.Forms.Label();
             this.lblFiltroAvanzado = new System.Windows.Forms.Label();
             this.txtFiltroAvanzado = new System.Windows.Forms.TextBox();
+            this.btnReiniciarBusqueda = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPokemon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPokemons)).BeginInit();
             this.SuspendLayout();
@@ -194,11 +195,24 @@
             this.txtFiltroAvanzado.Size = new System.Drawing.Size(138, 20);
             this.txtFiltroAvanzado.TabIndex = 0;
             // 
+            // btnReiniciarBusqueda
+            // 
+            this.btnReiniciarBusqueda.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnReiniciarBusqueda.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnReiniciarBusqueda.Location = new System.Drawing.Point(958, 579);
+            this.btnReiniciarBusqueda.Name = "btnReiniciarBusqueda";
+            this.btnReiniciarBusqueda.Size = new System.Drawing.Size(114, 26);
+            this.btnReiniciarBusqueda.TabIndex = 15;
+            this.btnReiniciarBusqueda.Text = "Reiniciar busqueda";
+            this.btnReiniciarBusqueda.UseVisualStyleBackColor = false;
+            this.btnReiniciarBusqueda.Click += new System.EventHandler(this.btnReiniciarBusqueda_Click);
+            // 
             // Pokedex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1233, 662);
+            this.Controls.Add(this.btnReiniciarBusqueda);
             this.Controls.Add(this.txtFiltroAvanzado);
             this.Controls.Add(this.lblFiltroAvanzado);
             this.Controls.Add(this.cboCriterio);
@@ -242,6 +256,7 @@
         private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.Label lblFiltroAvanzado;
         private System.Windows.Forms.TextBox txtFiltroAvanzado;
+        private System.Windows.Forms.Button btnReiniciarBusqueda;
     }
 }
 
