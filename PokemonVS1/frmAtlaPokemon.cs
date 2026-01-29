@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ namespace PokemonVS1
     public partial class frmAtlaPokemon : Form
     {
         private Pokemon pokemon = null;
+        OpenFileDialog archivo = null;
         public frmAtlaPokemon()
         {
             InitializeComponent();
@@ -46,7 +49,7 @@ namespace PokemonVS1
 
             try
             {
-                if (pokemon == null) { pokemon = new Pokemon(); }   
+                if (pokemon == null) { pokemon = new Pokemon(); }
                 pokemon.Numero = int.Parse(txtNumero.Text);
                 pokemon.Nombre = txtNombre.Text;
                 pokemon.Descripcion = txtDescripcion.Text;
@@ -54,16 +57,22 @@ namespace PokemonVS1
                 pokemon.Tipo = (Elemento)cbxTipo.SelectedItem;
                 pokemon.Debilidad = (Elemento)cbxDebilidad.SelectedItem;
 
-                if(pokemon.Id != 0)
+                if (pokemon.Id != 0)
                 {
                     negocio.modificar(pokemon);
                     MessageBox.Show("Modificado exitosamente");
-                }  
+                }
                 else
                 {
                     negocio.agregar(pokemon);
                     MessageBox.Show("Agregado exitosamente");
                 }
+
+                if (archivo != null && txtUrlImg.Text.ToLower().Contains("http"))
+                {
+                    File.Copy(archivo.FileName, ConfigurationManager.AppSettings["poke-app"] + archivo.SafeFileName);
+                }
+
 
                 Close();
             }
@@ -134,6 +143,17 @@ namespace PokemonVS1
                 //vamos a hacer que si la imagen no está, para que no me lance la exepción, pongamos otra cosa, en este caso, una
                 //imagen de internet
                 pbxImg.Load("https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=");
+            }
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpj;|png|*.png";
+            if(archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtUrlImg.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);
             }
         }
     }

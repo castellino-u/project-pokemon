@@ -194,13 +194,14 @@ namespace PokemonVS1
                 int numero;
                 if (!(int.TryParse(txtFiltroAvanzado.Text, out numero)))
                 {
-                    MessageBox.Show("Debe ingresar un número");
+                    MessageBox.Show("Debe ingresar un númerooooo");
                     return true;
                 }
             }
 
             return false;
         }
+
 
         private void btnFiltro_Click(object sender, EventArgs e)
         {

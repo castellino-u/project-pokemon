@@ -43,6 +43,7 @@
             this.cbxTipo = new System.Windows.Forms.ComboBox();
             this.cbxDebilidad = new System.Windows.Forms.ComboBox();
             this.pbxImg = new System.Windows.Forms.PictureBox();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImg)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,11 +179,22 @@
             this.pbxImg.TabIndex = 8;
             this.pbxImg.TabStop = false;
             // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.Location = new System.Drawing.Point(237, 121);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(27, 24);
+            this.btnAgregarImagen.TabIndex = 9;
+            this.btnAgregarImagen.Text = "+";
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
+            // 
             // frmAtlaPokemon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 405);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.pbxImg);
             this.Controls.Add(this.cbxDebilidad);
             this.Controls.Add(this.cbxTipo);
@@ -225,5 +237,6 @@
         private System.Windows.Forms.ComboBox cbxTipo;
         private System.Windows.Forms.ComboBox cbxDebilidad;
         private System.Windows.Forms.PictureBox pbxImg;
+        private System.Windows.Forms.Button btnAgregarImagen;
     }
 }
