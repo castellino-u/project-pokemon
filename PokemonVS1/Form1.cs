@@ -285,6 +285,7 @@ namespace PokemonVS1
             }
         }
 
+        //implementación de botón para reiniciar el dataGrid View para que se muestre todo otra vez 
         private void btnReiniciarBusqueda_Click(object sender, EventArgs e)
         {
             cargarDatos();
